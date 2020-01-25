@@ -40,7 +40,8 @@ void NcursesDisplay::delAllWin()
 {
     for(int i = 0; i < _windows.size(); i++)
     {
-        wclear(_windows[i]);
+        werase(_windows[i]);
+        wrefresh(_windows[i]);
         delwin(_windows[i]);
     }
     _windows.clear();
@@ -60,7 +61,6 @@ void NcursesDisplay::run()
         }
         //clear();
         delAllWin();
-        refresh();
         for(Itor i = _monitors.begin(); i != _monitors.end(); i++)
         {
             if ((*i)->isActive())
@@ -71,6 +71,7 @@ void NcursesDisplay::run()
         }
         refresh();
         while (getch() != ERR)
+        ;
         usleep(100000);
     }
 }
