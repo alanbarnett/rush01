@@ -6,13 +6,15 @@
 class AMonitorModule : public IMonitorModule
 {
     private:
+        std::string _name;
         bool _active;
         AMonitorModule(const AMonitorModule &);
         AMonitorModule &operator=(const AMonitorModule &);
 
     public:
-        AMonitorModule();
+        AMonitorModule(const std::string &name);
         ~AMonitorModule();
+        const std::string &getName() const;
         bool isActive();
         void setActive(bool a);
 };

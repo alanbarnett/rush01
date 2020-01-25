@@ -15,7 +15,7 @@ class MultiStrMonitorModule : public AMonitorModule
         MultiStrMonitorModule &operator=(const MultiStrMonitorModule &);
 
     public:
-        MultiStrMonitorModule();
+        MultiStrMonitorModule(const std::string &name);
         ~MultiStrMonitorModule();
         const std::vector<std::string> &getStrings() const;     
 };

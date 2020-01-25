@@ -11,6 +11,7 @@ class OSMonitorModule : public MultiStrMonitorModule
     public:
         OSMonitorModule();
         ~OSMonitorModule();
+        void beDisplayed(IMonitorDisplay *);
         void stat();
 };
 #endif

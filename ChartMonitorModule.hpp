@@ -1,5 +1,5 @@
-#ifndef MULTISTRMONITORMODULE_HPP
-#define MULTISTRMONITORMODULE_HPP
+#ifndef CHARTMONITORMODULE_HPP
+#define CHARTMONITORMODULE_HPP
 
 #include "AMonitorModule.hpp"
 #include <deque>
@@ -10,7 +10,7 @@ class ChartMonitorModule : public AMonitorModule
 {
     public:
         typedef std::deque<T> Container;
-        typedef Container::const_iterator const_iterator;
+        typedef typename Container::iterator iterator;
 
     protected:
         Container _data;
@@ -27,16 +27,16 @@ class ChartMonitorModule : public AMonitorModule
         ChartMonitorModule &operator=(const ChartMonitorModule &);
 
     public:
-        ChartMonitorModule(size_t size): _size(size) {}
+        ChartMonitorModule(const std::string &name, size_t size): AMonitorModule(name), _size(size) {}
         ~ChartMonitorModule() {}
-        const_iterator cbegin() const
+        iterator begin()
         {
-            return (_data.cbegin());
+            return (_data.begin());
         }
 
-        const_iterator cend() const
+        iterator end()
         {
-            return (_data.cend());
+            return (_data.end());
         }
 };
 

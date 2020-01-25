@@ -1,6 +1,6 @@
 #include "MultiStrMonitorModule.hpp"
 
-MultiStrMonitorModule::MultiStrMonitorModule() {}
+MultiStrMonitorModule::MultiStrMonitorModule(const std::string &name): AMonitorModule(name) {}
 
 MultiStrMonitorModule::~MultiStrMonitorModule() {}
 
