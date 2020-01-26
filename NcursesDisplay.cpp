@@ -1,5 +1,5 @@
 #include "NcursesDisplay.hpp"
-
+#include "NameMonitorModule.hpp"
 #include "OSMonitorModule.hpp"
 #include "CPUloadModule.hpp"
 #include <ncurses.h>
@@ -20,14 +20,13 @@ NcursesDisplay::NcursesDisplay(unsigned int width, unsigned int height): AMonito
     nodelay(stdscr, TRUE);
     refresh();
 
-    // addMonitor('n', new NameMonitorModule());
+    addMonitor('n', new NameMonitorModule());
     addMonitor('o', new OSMonitorModule());
     // addMonitor('d', new DateMonitorModule());
     // addMonitor('c', new CPUMonitorModule());
     // addMonitor('r', new RAMMonitorModule());
     // addMonitor('k', new NetworkMonitorModule());
     addMonitor('l', new CPUloadModule(width - 2));
-
 
 }
 

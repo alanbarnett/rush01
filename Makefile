@@ -8,6 +8,7 @@ OBJS = main.o\
 		Keyboard.o\
 		OSMonitorModule.o\
 		CPUloadModule.o\
+		NameMonitorModule.o\
 		
 CXX = clang++
 CXXFLAGS =-g -lsfml-graphics -lsfml-window -lsfml-system -lncurses
