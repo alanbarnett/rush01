@@ -1,8 +1,13 @@
 #include "NcursesDisplay.hpp"
 #include "NameMonitorModule.hpp"
 #include "DateMonitorModule.hpp"
+#include "CPUMonitorModule.hpp"
+#include "RAMMonitorModule.hpp"
 #include "OSMonitorModule.hpp"
 #include "CPUloadModule.hpp"
+#include "NetworkMonitorModule.hpp"
+#include "UsageMonitorModule.hpp"
+#include "UnicornMonitorModule.hpp"
 #include <ncurses.h>
 #include <cstdlib>
 #include <unistd.h>
@@ -24,10 +29,14 @@ NcursesDisplay::NcursesDisplay(unsigned int width, unsigned int height): AMonito
     addMonitorWithKey('n', new NameMonitorModule());
     addMonitorWithKey('o', new OSMonitorModule());
     addMonitorWithKey('d', new DateMonitorModule());
-    // addMonitorWithKey('c', new CPUMonitorModule());
-    // addMonitorWithKey('r', new RAMMonitorModule());
-    // addMonitorWithKey('k', new NetworkMonitorModule());n
+    addMonitorWithKey('c', new CPUMonitorModule());
+    addMonitorWithKey('r', new RAMMonitorModule());
+    addMonitorWithKey('k', new NetworkMonitorModule());
     addMonitorWithKey('l', new CPUloadModule(width - 2));
+    addMonitorWithKey('z', new UnicornMonitorModule());
+    addMonitorWithKey('u', new UsageMonitorModule());
+
+
 
 }
 
@@ -57,7 +66,7 @@ void NcursesDisplay::delAllWin()
 
 void NcursesDisplay::run()
 {
-    for (;;)
+    for (int dt = 0;; dt++)
     {
         if (this->_keyboard.isKeyPresed('q'))
             break;
@@ -71,14 +80,15 @@ void NcursesDisplay::run()
         {
             if ((*i)->isActive())
             {
-                (*i)->stat();
+                if (dt%10 == 0)
+                    (*i)->stat();
                 (*i)->beDisplayed(this);
             }
         }
         refresh();
         while (getch() != ERR)
         ;
-        usleep(100000);
+        usleep(10000);
     }
 }
 void NcursesDisplay::display(MultiStrMonitorModule *module)

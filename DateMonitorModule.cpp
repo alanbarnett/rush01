@@ -7,7 +7,6 @@
 
 DateMonitorModule::DateMonitorModule() : MultiStrMonitorModule("The local date and time:")
 {
-    stat();
 }
 
 DateMonitorModule::~DateMonitorModule()

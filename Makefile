@@ -21,7 +21,13 @@ OBJS = main.o\
 		OSMonitorModule.o\
 		CPUloadModule.o\
 		NameMonitorModule.o\
+		CPUMonitorModule.o\
+		RAMMonitorModule.o\
 		DateMonitorModule.o\
+		UnicornMonitorModule.o\
+		UsageMonitorModule.o\
+		NetworkMonitorModule.o\
+		Utils.o\
 
 		
 CXX = clang++
