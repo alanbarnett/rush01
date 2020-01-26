@@ -6,7 +6,7 @@
 #    By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/25 17:22:15 by snechaev          #+#    #+#              #
-#    Updated: 2020/01/25 18:25:22 by snechaev         ###   ########.fr        #
+#    Updated: 2020/01/26 19:03:57 by abarnett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ OBJS = main.o\
 		NcursesDisplay.o\
 		Keyboard.o\
 		OSMonitorModule.o\
-		CPUloadModule.o\
 		NameMonitorModule.o\
 		CPUMonitorModule.o\
 		RAMMonitorModule.o\
@@ -28,8 +27,8 @@ OBJS = main.o\
 		UsageMonitorModule.o\
 		NetworkMonitorModule.o\
 		NetworkStat.o\
-		Utils.o\
-
+		Utils.o
+DEPS :=	$(patsubst %.o,%.d,$(OBJS))
 		
 CXX = clang++
 #CXXFLAGS =-g -lsfml-graphics -lsfml-window -lsfml-system -lncurses
@@ -40,10 +39,16 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CXX) -o $(NAME) $(CXXFLAGS) $(OBJS) -lncurses
 
-clean:
-	@rm -f $(OBJS)
+%.o:		%.cpp Makefile
+	$(CXX) $(CXXFLAGS) -MMD -MT $@ -o $@ -c $<
 
-fclean: clean
-	@rm -f $(NAME)
+-include $(DEPS)
+
+clean:
+	@ rm -f $(OBJS)
+	@ rm -f $(DEPS)
+
+fclean:		clean
+	@ rm -f $(NAME)
 
 re:     fclean all
