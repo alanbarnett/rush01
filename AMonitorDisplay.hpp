@@ -25,7 +25,6 @@ public:
     ~AMonitorDisplay();
     void addMonitor(IMonitorModule *);
     void removeMonitor(const std::string &name);
-    void display(IMonitorModule *);
 };
 
 #endif

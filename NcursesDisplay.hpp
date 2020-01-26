@@ -15,7 +15,7 @@ class NcursesDisplay: public AMonitorDisplay
         std::vector<WINDOW*> _windows;
         Keyboard _keyboard;
         void delAllWin();
-        void addMonitor(char key, IMonitorModule* m);
+        void addMonitorWithKey(char key, IMonitorModule* m);
         NcursesDisplay(const NcursesDisplay &);
         NcursesDisplay &operator=(const NcursesDisplay &);
 

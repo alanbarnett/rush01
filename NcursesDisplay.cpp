@@ -1,5 +1,6 @@
 #include "NcursesDisplay.hpp"
 #include "NameMonitorModule.hpp"
+#include "DateMonitorModule.hpp"
 #include "OSMonitorModule.hpp"
 #include "CPUloadModule.hpp"
 #include <ncurses.h>
@@ -20,17 +21,17 @@ NcursesDisplay::NcursesDisplay(unsigned int width, unsigned int height): AMonito
     nodelay(stdscr, TRUE);
     refresh();
 
-    addMonitor('n', new NameMonitorModule());
-    addMonitor('o', new OSMonitorModule());
-    // addMonitor('d', new DateMonitorModule());
-    // addMonitor('c', new CPUMonitorModule());
-    // addMonitor('r', new RAMMonitorModule());
-    // addMonitor('k', new NetworkMonitorModule());
-    addMonitor('l', new CPUloadModule(width - 2));
+    addMonitorWithKey('n', new NameMonitorModule());
+    addMonitorWithKey('o', new OSMonitorModule());
+    addMonitorWithKey('d', new DateMonitorModule());
+    // addMonitorWithKey('c', new CPUMonitorModule());
+    // addMonitorWithKey('r', new RAMMonitorModule());
+    // addMonitorWithKey('k', new NetworkMonitorModule());n
+    addMonitorWithKey('l', new CPUloadModule(width - 2));
 
 }
 
-void NcursesDisplay::addMonitor(char key, IMonitorModule* m)
+void NcursesDisplay::addMonitorWithKey(char key, IMonitorModule* m)
 {
     AMonitorDisplay::addMonitor(m);
     _keyBind[key] = m;
@@ -44,7 +45,7 @@ NcursesDisplay::~NcursesDisplay()
 
 void NcursesDisplay::delAllWin()
 {
-    for(int i = 0; i < _windows.size(); i++)
+    for(size_t i = 0; i < _windows.size(); i++)
     {
         werase(_windows[i]);
         wrefresh(_windows[i]);
@@ -65,7 +66,6 @@ void NcursesDisplay::run()
             if (this->_keyboard.isKeyPresed(i->first))
                 i->second->setActive(!i->second->isActive());
         }
-        //clear();
         delAllWin();
         for(Itor i = _monitors.begin(); i != _monitors.end(); i++)
         {
@@ -92,7 +92,7 @@ void NcursesDisplay::display(MultiStrMonitorModule *module)
     mvwprintw(w, 1, 1, module->getName().c_str());
     wmove(w,2,1);
     whline(w, ACS_HLINE, getmaxx(w) - 2);
-    for(int i = 0; i < strings.size(); i++)
+    for(size_t i = 0; i < strings.size(); i++)
         mvwprintw(w, 3 + i, 1, strings[i].c_str()); 
     wrefresh(w);
 }

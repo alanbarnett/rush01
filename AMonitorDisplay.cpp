@@ -1,7 +1,7 @@
 #include "AMonitorDisplay.hpp"
 
 AMonitorDisplay::AMonitorDisplay(unsigned int width, unsigned int height)
-: _height(height), _width(width), _curHeight(0) {}
+: _width(width), _height(height),  _curHeight(0) {}
 
 AMonitorDisplay::~AMonitorDisplay()
 {
@@ -24,9 +24,4 @@ void AMonitorDisplay::removeMonitor(const std::string &name)
             _monitors.erase(i);
         }
     }
-}
-
-void AMonitorDisplay::display(IMonitorModule *module)
-{
-    module->beDisplayed(this);
 }
