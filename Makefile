@@ -6,7 +6,7 @@
 #    By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/25 17:22:15 by snechaev          #+#    #+#              #
-#    Updated: 2020/01/26 19:05:17 by abarnett         ###   ########.fr        #
+#    Updated: 2020/01/26 19:13:16 by abarnett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,8 @@ INCLUDE_DIRS :=	includes $(SFML_DIR)/include
 
 CXX =		clang++
 CXXFLAGS +=	-g -Wall -Wextra -Werror $(foreach dir,$(INCLUDE_DIRS),-I$(dir))
-LDFLAGS +=	-L$(SFML_DIR)/lib
-LDLIBS +=	-lncurses $(SFML_DIR)/lib/libsfml-window.dylib $(SFML_DIR)/lib/libsfml-graphics.dylib $(SFML_DIR)/lib/libsfml-system.dylib -rpath @executable_path/$(SFML_DIR)/lib
+LDFLAGS +=	-L$(SFML_DIR)/lib -rpath @executable_path/$(SFML_DIR)/lib
+LDLIBS +=	-lncurses -lsfml-window -lsfml-graphics -lsfml-system
 
 .PHONY:		all clean fclean re
 
