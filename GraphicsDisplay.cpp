@@ -6,7 +6,7 @@
 /*   By: abarnett <alanbarnett328@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 07:14:47 by abarnett          #+#    #+#             */
-/*   Updated: 2020/01/26 08:58:31 by abarnett         ###   ########.fr       */
+/*   Updated: 2020/01/26 11:01:13 by abarnett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <cstdlib>
 #include <unistd.h>
 #include <iostream>
+
+#define START_POS 50
 
 GraphicsDisplay::GraphicsDisplay(unsigned int width, unsigned int height): AMonitorDisplay(width, height)
 {
@@ -28,6 +30,36 @@ GraphicsDisplay::~GraphicsDisplay()
 void GraphicsDisplay::run()
 {
 	std::cout << "ran!" << std::endl;
+	_window.create(sf::VideoMode(800, 1800), "My Window");
+	if (!_font.loadFromFile("TerminusTTF-4.46.0.ttf"))
+		return ;
+
+	while (_window.isOpen())
+	{
+		// Set the starting position at the top
+		_position = START_POS;
+
+		// Event handling
+		sf::Event	event;
+		while (_window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				_window.close();
+		}
+
+		// Start of main loop (clear, draw, display)
+		_window.clear();
+		for (monitors_iter i = _monitors.begin(); i != _monitors.end(); ++i)
+		{
+			if ((*i)->isActive())
+			{
+				(*i)->stat();
+				(*i)->beDisplayed(this);
+			}
+		}
+		_window.display();
+		usleep(100000);
+	}
 	// for (;;)
 	// {
 	// 	// if (this->_keyboard.isKeyPresed('q'))
@@ -54,9 +86,25 @@ void GraphicsDisplay::run()
 }
 void GraphicsDisplay::display(MultiStrMonitorModule *module)
 {
-	(void)module;
-	std::cout << "strings!" << std::endl;
-	// const std::vector<std::string> & strings = module->getStrings();
+	sf::Text	text;
+	text.setFont(_font);
+	text.setCharacterSize(32);
+	text.setFillColor(sf::Color::White);
+	text.setPosition(10.0f, _position);
+	_position += 400;
+
+	std::string	bigstring;
+
+	bigstring = module->getName();
+	bigstring += "\n------------------------------\n";
+	const std::vector<std::string> & strings = module->getStrings();
+	for (size_t i = 0; i < strings.size(); ++i)
+	{
+		bigstring += strings[i];
+		bigstring += "\n";
+	}
+	text.setString(bigstring);
+	_window.draw(text);
 	// int wh = strings.size() + 4;
 	// WINDOW *w = newwin(wh, _width, _curHeight, 0);
 	// _curHeight += wh;
@@ -73,7 +121,6 @@ void GraphicsDisplay::display(MultiStrMonitorModule *module)
 void GraphicsDisplay::display(ChartMonitorModule<float> *module)
 {
 	(void)module;
-	std::cout << "chart!" << std::endl;
 	// int wh = chartHeight + 4;
 	// WINDOW *w = newwin(wh, _width, _curHeight, 0);
 	// _curHeight += wh;
