@@ -5,9 +5,7 @@
 #include "OSMonitorModule.hpp"
 #include "CPUloadModule.hpp"
 #include <iostream>
-#include <unistd.h>
-#include <cstring>
-#include <errno.h>
+#include <string>
 
 // void runCmd(const std::vector<std::string> &cmdArg)
 // {
@@ -44,7 +42,7 @@
 // 	runCmd(cmd);
 // 	return(0);
 // }
- 
+
 #define WIDTH 40
 #define HEIGHT 60
 
