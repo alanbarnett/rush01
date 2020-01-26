@@ -19,8 +19,15 @@ NcursesDisplay::NcursesDisplay(unsigned int width, unsigned int height): AMonito
     keypad(stdscr, TRUE);
     nodelay(stdscr, TRUE);
     refresh();
-    addMonitor('c', new CPUloadModule(width - 2));
+
+    // addMonitor('n', new NameMonitorModule());
     addMonitor('o', new OSMonitorModule());
+    // addMonitor('d', new DateMonitorModule());
+    // addMonitor('c', new CPUMonitorModule());
+    // addMonitor('r', new RAMMonitorModule());
+    // addMonitor('k', new NetworkMonitorModule());
+    addMonitor('l', new CPUloadModule(width - 2));
+
 
 }
 

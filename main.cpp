@@ -1,33 +1,37 @@
 #include <SFML/Graphics.hpp>
 #include "NcursesDisplay.hpp"
+#include <iostream>
 
-int main()
+void usage(std::ostream &os)
 {
-	NcursesDisplay d(40,60);
-	d.run();
+	os << "Usage: ft_gkrellm -tui|-gui\n";
+}
 
-    // 	// Создаем окно размером 600 на 600 и частотой обновления 60 кадров в секунду
-	// sf::RenderWindow window(sf::VideoMode(600, 600), "15");
-	// window.setFramerateLimit(60);
+int main(int argc, char **argv)
+{
+	if (argc != 2)
+	{
+		usage(std::cerr);
+		return (1);
+	}
 
-	// sf::Event event;
-
-	// while (window.isOpen())
-	// {
-	// 	while (window.pollEvent(event))
-	// 	{
-	// 		if (event.type == sf::Event::Closed) window.close();
-	// 		if (event.type == sf::Event::KeyPressed)
-	// 		{
-	// 			// Получаем нажатую клавишу - выполняем соответствующее действие
-	// 			if (event.key.code == sf::Keyboard::Escape) window.close();
-	// 		}
-	// 	}
-
-	// 	// Выполняем необходимые действия по отрисовке
-	// 	window.clear();
-	// 	window.display();
-	// }
-    
+	std::string arg = argv[1];
+	if (arg == "-tui")
+	{
+		NcursesDisplay d(40,60);
+		d.run();
+	}
+	else if (arg == "-gui")
+	{
+		// FIXME: impement GraphicDisplay class
+//		GraphicsDisplay d(40,60); 
+//		d.run();
+	}
+	else
+	{
+		std::cerr << "Unknown argument: " << arg << std::endl;
+		usage(std::cerr);
+	}
+		
     return 0;
 }
