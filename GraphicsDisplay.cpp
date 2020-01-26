@@ -6,20 +6,24 @@
 /*   By: abarnett <alanbarnett328@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 07:14:47 by abarnett          #+#    #+#             */
-/*   Updated: 2020/01/26 11:01:13 by abarnett         ###   ########.fr       */
+/*   Updated: 2020/01/26 14:42:23 by abarnett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "GraphicsDisplay.hpp"
+#include <SFML/Graphics.hpp>
 #include <cstdlib>
 #include <unistd.h>
 #include <iostream>
+#include <string>
+#include <sstream>
 
-#define START_POS 50
+#define START_POS 20
 
 GraphicsDisplay::GraphicsDisplay(unsigned int width, unsigned int height): AMonitorDisplay(width, height)
 {
 	std::cout << "in graphic constructor" << std::endl;
+	_windowGap = 20;
 }
 
 GraphicsDisplay::~GraphicsDisplay()
@@ -37,7 +41,7 @@ void GraphicsDisplay::run()
 	while (_window.isOpen())
 	{
 		// Set the starting position at the top
-		_position = START_POS;
+		_curHeight = START_POS;
 
 		// Event handling
 		sf::Event	event;
@@ -90,21 +94,20 @@ void GraphicsDisplay::display(MultiStrMonitorModule *module)
 	text.setFont(_font);
 	text.setCharacterSize(32);
 	text.setFillColor(sf::Color::White);
-	text.setPosition(10.0f, _position);
-	_position += 400;
+	text.setPosition(10.0f, _curHeight);
 
-	std::string	bigstring;
+	std::stringstream	bigstring;
 
-	bigstring = module->getName();
-	bigstring += "\n------------------------------\n";
+	bigstring << module->getName() << "\n";
+	bigstring << "------------------------------\n";
 	const std::vector<std::string> & strings = module->getStrings();
 	for (size_t i = 0; i < strings.size(); ++i)
 	{
-		bigstring += strings[i];
-		bigstring += "\n";
+		bigstring << strings[i] << "\n";
 	}
-	text.setString(bigstring);
+	text.setString(bigstring.str());
 	_window.draw(text);
+	_curHeight += text.getLocalBounds().height + _windowGap;
 	// int wh = strings.size() + 4;
 	// WINDOW *w = newwin(wh, _width, _curHeight, 0);
 	// _curHeight += wh;
@@ -121,6 +124,16 @@ void GraphicsDisplay::display(MultiStrMonitorModule *module)
 void GraphicsDisplay::display(ChartMonitorModule<float> *module)
 {
 	(void)module;
+	sf::VertexArray	triangle(sf::TriangleStrip, 3);
+
+	triangle[0].position = sf::Vector2f(10.0f, _curHeight);
+	triangle[1].position = sf::Vector2f(100.0f, _curHeight);
+	triangle[2].position = sf::Vector2f(100.0f, _curHeight + 200);
+	_curHeight += 300;
+	triangle[0].color = sf::Color::Red;
+	triangle[1].color = sf::Color::Blue;
+	triangle[2].color = sf::Color::Green;
+	_window.draw(triangle);
 	// int wh = chartHeight + 4;
 	// WINDOW *w = newwin(wh, _width, _curHeight, 0);
 	// _curHeight += wh;
