@@ -6,7 +6,7 @@
 /*   By: abarnett <alanbarnett328@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 07:14:48 by abarnett          #+#    #+#             */
-/*   Updated: 2020/01/26 14:39:53 by abarnett         ###   ########.fr       */
+/*   Updated: 2020/01/26 17:23:07 by abarnett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,18 @@ class GraphicsDisplay: public AMonitorDisplay
 		static const size_t chartHeight = 10; 
 		sf::RenderWindow	_window;
 		sf::Font			_font;
+		float				_vertOffset;
+		float				_horizOffset;
 		unsigned int		_windowGap;
+		unsigned int		_titleGap;
+		unsigned int		_titleSize;
+		unsigned int		_textSize;
+		sf::Color			_titleColor;
+		sf::Color			_textColor;
 		//std::vector<WINDOW*> _windows;
 		GraphicsDisplay(const GraphicsDisplay &);
 		GraphicsDisplay &operator=(const GraphicsDisplay &);
+		void				drawName(IMonitorModule *module);
 
 	public:
 		GraphicsDisplay(unsigned int width, unsigned int height);
