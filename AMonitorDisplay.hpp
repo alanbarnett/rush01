@@ -2,7 +2,7 @@
 #define AMONITORDISPLAY_HPP
 
 #include "IMonitorDisplay.hpp"
-#include <list>
+#include <vector>
 #include <map>
 
 class AMonitorDisplay : public IMonitorDisplay
@@ -13,7 +13,7 @@ class AMonitorDisplay : public IMonitorDisplay
 		unsigned int _width;
 		unsigned int _height;
 		unsigned int _curHeight;
-		std::list<IMonitorModule *> _monitors;
+		std::vector<IMonitorModule *> _monitors;
 		std::map<char, IMonitorModule*> _keyBind;
 
 	private:
