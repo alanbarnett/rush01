@@ -29,6 +29,10 @@ class ChartMonitorModule : public AMonitorModule
     public:
         ChartMonitorModule(const std::string &name, size_t size): AMonitorModule(name), _size(size) {}
         ~ChartMonitorModule() {}
+		size_t	getSize()
+		{
+			return (_size);
+		}
         iterator begin()
         {
             return (_data.begin());
