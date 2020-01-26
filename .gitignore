@@ -2,6 +2,7 @@ ft_gkrellm
 .vscode
 ._*
 *.o
+*.d
 *.ko
 *.obj
 *.elf
