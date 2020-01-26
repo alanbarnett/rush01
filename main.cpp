@@ -1,5 +1,8 @@
-//#include <SFML/Graphics.hpp>
 #include "NcursesDisplay.hpp"
+#include "NameMonitorModule.hpp"
+#include "DateMonitorModule.hpp"
+#include "OSMonitorModule.hpp"
+#include "CPUloadModule.hpp"
 #include <iostream>
 #include <unistd.h>
 #include <cstring>
@@ -41,13 +44,17 @@
 // 	return(0);
 // }
  
+#define WIDTH 40
+#define HEIGHT 60
+
 void usage(std::ostream &os)
 {
 	os << "Usage: ft_gkrellm -tui|-gui\n";
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
+	AMonitorDisplay	*disp;
 
 	if (argc != 2)
 	{
@@ -55,23 +62,30 @@ int main(int argc, char **argv)
 		return (1);
 	}
 
-	std::string arg = argv[1];
+	std::string	arg(argv[1]);
 	if (arg == "-tui")
 	{
-		NcursesDisplay d(60,60);
-		d.run();
+		disp = new NcursesDisplay(WIDTH, HEIGHT);
 	}
 	else if (arg == "-gui")
 	{
 		// FIXME: impement GraphicDisplay class
-//		GraphicsDisplay d(40,60); 
-//		d.run();
+		disp = new NcursesDisplay(WIDTH, HEIGHT);
 	}
 	else
 	{
 		std::cerr << "Unknown argument: " << arg << std::endl;
 		usage(std::cerr);
+		return (1);
 	}
-		
-    return 0;
+
+	disp->addMonitorWithKey('n', new NameMonitorModule());
+	disp->addMonitorWithKey('o', new OSMonitorModule());
+	disp->addMonitorWithKey('d', new DateMonitorModule());
+	disp->addMonitorWithKey('l', new CPUloadModule(WIDTH - 2));
+
+	disp->run();
+
+	delete disp;
+	return 0;
 }

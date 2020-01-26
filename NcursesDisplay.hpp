@@ -10,12 +10,10 @@
 class NcursesDisplay: public AMonitorDisplay
 {
     private:
-        std::map<char , IMonitorModule*> _keyBind;
         static const size_t chartHeight = 10; 
         std::vector<WINDOW*> _windows;
         Keyboard _keyboard;
         void delAllWin();
-        void addMonitorWithKey(char key, IMonitorModule* m);
         NcursesDisplay(const NcursesDisplay &);
         NcursesDisplay &operator=(const NcursesDisplay &);
 

@@ -26,21 +26,6 @@ NcursesDisplay::NcursesDisplay(unsigned int width, unsigned int height): AMonito
     nodelay(stdscr, TRUE);
     refresh();
 
-    addMonitorWithKey('n', new NameMonitorModule());
-    addMonitorWithKey('o', new OSMonitorModule());
-    addMonitorWithKey('d', new DateMonitorModule());
-    addMonitorWithKey('c', new CPUMonitorModule());
-    addMonitorWithKey('r', new RAMMonitorModule());
-    addMonitorWithKey('l', new CPUloadModule(width - 2));
-    addMonitorWithKey('z', new UnicornMonitorModule());
-    addMonitorWithKey('u', new UsageMonitorModule());
-    addMonitorWithKey('k', new NetworkMonitorModule());
-}
-
-void NcursesDisplay::addMonitorWithKey(char key, IMonitorModule* m)
-{
-    AMonitorDisplay::addMonitor(m);
-    _keyBind[key] = m;
 }
 
 NcursesDisplay::~NcursesDisplay()
@@ -140,6 +125,4 @@ void NcursesDisplay::display(ChartMonitorModule<float> *module)
     }
 
     wrefresh(w);
-
-    
 }
