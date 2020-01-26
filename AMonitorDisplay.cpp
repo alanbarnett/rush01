@@ -5,8 +5,8 @@ AMonitorDisplay::AMonitorDisplay(unsigned int width, unsigned int height)
 
 AMonitorDisplay::~AMonitorDisplay()
 {
-    for(Itor i = _monitors.begin(); i != _monitors.end(); i++)
-        delete *i;
+	for(iterator i = _monitors.begin(); i != _monitors.end(); i++)
+		delete *i;
 }
 
 void AMonitorDisplay::addMonitor(IMonitorModule *module)
@@ -22,12 +22,12 @@ void AMonitorDisplay::addMonitorWithKey(char key, IMonitorModule* m)
 
 void AMonitorDisplay::removeMonitor(const std::string &name)
 {
-    for(Itor i = _monitors.begin(); i != _monitors.end(); i++)
-    {
-        if ((*i)->getName() ==  name)
-        {
-            delete *i;
-            _monitors.erase(i);
-        }
-    }
+	for(iterator i = _monitors.begin(); i != _monitors.end(); i++)
+	{
+		if ((*i)->getName() ==	name)
+		{
+			delete *i;
+			_monitors.erase(i);
+		}
+	}
 }

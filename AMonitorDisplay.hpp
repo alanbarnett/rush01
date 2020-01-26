@@ -7,10 +7,9 @@
 
 class AMonitorDisplay : public IMonitorDisplay
 {
-public:
-    typedef std::list<IMonitorModule *>::iterator Itor;
-
 	protected:
+		typedef std::vector<IMonitorModule *>::iterator iterator;
+
 		unsigned int _width;
 		unsigned int _height;
 		unsigned int _curHeight;
