@@ -1,4 +1,5 @@
 #include "NcursesDisplay.hpp"
+#include "GraphicsDisplay.hpp"
 #include "NameMonitorModule.hpp"
 #include "DateMonitorModule.hpp"
 #include "OSMonitorModule.hpp"
@@ -69,8 +70,7 @@ int	main(int argc, char **argv)
 	}
 	else if (arg == "-gui")
 	{
-		// FIXME: impement GraphicDisplay class
-		disp = new NcursesDisplay(WIDTH, HEIGHT);
+		disp = new GraphicsDisplay(WIDTH, HEIGHT);
 	}
 	else
 	{
