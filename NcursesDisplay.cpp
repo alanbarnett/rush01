@@ -93,7 +93,10 @@ void NcursesDisplay::display(MultiStrMonitorModule *module)
     wmove(w,2,1);
     whline(w, ACS_HLINE, getmaxx(w) - 2);
     for(size_t i = 0; i < strings.size(); i++)
-        mvwprintw(w, 3 + i, 1, strings[i].c_str()); 
+    {
+        std::string tmp = strings[i].substr(0, _width - 2);
+        mvwprintw(w, 3 + i, 1, tmp.c_str());
+    }
     wrefresh(w);
 }
 
