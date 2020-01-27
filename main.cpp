@@ -1,48 +1,17 @@
 #include "NcursesDisplay.hpp"
 #include "GraphicsDisplay.hpp"
 #include "NameMonitorModule.hpp"
-#include "DateMonitorModule.hpp"
 #include "OSMonitorModule.hpp"
+#include "DateMonitorModule.hpp"
+#include "CPUMonitorModule.hpp"
+#include "RAMMonitorModule.hpp"
 #include "CPUloadModule.hpp"
 #include "RAMloadModule.hpp"
+#include "NetworkMonitorModule.hpp"
+#include "UnicornMonitorModule.hpp"
+#include "UsageMonitorModule.hpp"
 #include <iostream>
 #include <string>
-
-// void runCmd(const std::vector<std::string> &cmdArg)
-// {
-// 	pid_t pid = fork();
-// 	if (pid == -1)
-// 	{
-// 		std::cerr << "fork faled\n";
-// 		return;
-// 	}
-// 	if (pid == 0)
-// 	{
-// 		const char *cmd = cmdArg[0].c_str();
-// 		const char *args[cmdArg.size()];
-
-// 		for (size_t i = 1; i < cmdArg.size(); i++)
-// 			args[i-1] = cmdArg[i].c_str();
-// 		args[cmdArg.size() - 1] = 0;
-
-// 		if (execv(cmd, const_cast<char*const*>(args)) == -1)
-// 			std::cerr << "execl faled: " << std::strerror(errno);
-// 		//child procces
-// 		return;
-// 	}
-// 	//parent procces
-// }
-
-// int main()
-// {
-// 	std::vector<std::string> cmd;
-// 	cmd.push_back("/bin/sh");
-// 	cmd.push_back("");
-// 	cmd.push_back("-c");
-// 	cmd.push_back("/bin/ls -laF > ttt 2>/dev/null");
-// 	runCmd(cmd);
-// 	return(0);
-// }
 
 #define WIDTH 40
 #define HEIGHT 60
@@ -81,8 +50,13 @@ int	main(int argc, char **argv)
 	disp->addMonitorWithKey('n', new NameMonitorModule());
 	disp->addMonitorWithKey('o', new OSMonitorModule());
 	disp->addMonitorWithKey('d', new DateMonitorModule());
-	disp->addMonitorWithKey('c', new CPUloadModule(WIDTH - 2));
-	disp->addMonitorWithKey('r', new RAMloadModule(WIDTH - 2));
+	disp->addMonitorWithKey('c', new CPUMonitorModule());
+	disp->addMonitorWithKey('r', new RAMMonitorModule());
+	disp->addMonitorWithKey('l', new CPUloadModule(WIDTH - 2));
+	disp->addMonitorWithKey('L', new RAMloadModule(WIDTH - 2));
+	disp->addMonitorWithKey('k', new NetworkMonitorModule());
+	disp->addMonitorWithKey('z', new UnicornMonitorModule());
+	disp->addMonitorWithKey('u', new UsageMonitorModule());
 
 	disp->run();
 

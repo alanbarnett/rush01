@@ -10,6 +10,7 @@ UsageMonitorModule::UsageMonitorModule() : MultiStrMonitorModule("Usage:")
     _strings.push_back("key 'c' to activate/deactivate CPUMonitorModule");
     _strings.push_back("key 'r' to activate/deactivate RAMMonitorModule");
     _strings.push_back("key 'l' to activate/deactivate CPUloadModule");
+    _strings.push_back("key 'L' to activate/deactivate RAMloadModule");
     _strings.push_back("key 'k' to activate/deactivate NetworkMonitorModule");
     _strings.push_back("key 'z' to activate/deactivate ZazAnimalMonitorModule");
     _strings.push_back("key 'u' to activate/deactivate UsageMonitorModule");
