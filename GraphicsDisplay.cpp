@@ -6,7 +6,7 @@
 /*   By: abarnett <alanbarnett328@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 07:14:47 by abarnett          #+#    #+#             */
-/*   Updated: 2020/01/26 22:16:49 by abarnett         ###   ########.fr       */
+/*   Updated: 2020/01/26 23:37:07 by abarnett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void GraphicsDisplay::display(ChartMonitorModule<float> *module)
 {
 	size_t	points = module->getSize();
 	float	graphHeight = 100;
-	float	graphWidth = 500;
+	float	graphWidth = _windowWidth - (2 * _horizOffset);
 	// Initialize x position, and distance between x positions
 	float	xPos = _horizOffset;
 	float	xDelta = graphWidth / points;
@@ -164,8 +164,8 @@ void GraphicsDisplay::display(ChartMonitorModule<float> *module)
 		graph[i + 1].position = sf::Vector2f(xPos, _curHeight + graphHeight);
 
 		// Set colors based on value
-		graph[i].color = sf::Color(*it, 100 - *it, (xPos / 4));
-		graph[i + 1].color = sf::Color(80 + (*it / 2), 140 - (*it / 2), 20 + (xPos / 4));
+		graph[i].color = sf::Color(*it, 100 - *it, (xPos / 8));
+		graph[i + 1].color = sf::Color(80 + (*it / 2), 140 - (*it / 2), 20 + (xPos / 8));
 
 		// Move to the next x location
 		xPos += xDelta;
