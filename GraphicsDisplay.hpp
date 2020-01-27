@@ -38,6 +38,7 @@ class GraphicsDisplay: public AMonitorDisplay
 		GraphicsDisplay(const GraphicsDisplay &);
 		GraphicsDisplay &operator=(const GraphicsDisplay &);
 		void				drawName(IMonitorModule *module);
+		int					handleKey(char c);
 
 	public:
 		GraphicsDisplay(unsigned int width, unsigned int height);

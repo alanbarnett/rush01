@@ -37,7 +37,21 @@ GraphicsDisplay::~GraphicsDisplay()
 	std::cout << "graphics destructor" << std::endl;
 }
 
-void GraphicsDisplay::run()
+int		GraphicsDisplay::handleKey(char c)
+{
+	// Either quit the program, or hide the window of the pressed character
+	if (c == 'q')
+		return (1);
+	for (std::map<char, IMonitorModule *>::iterator i = _keyBind.begin();
+			i != _keyBind.end(); ++i)
+	{
+		if (c == i->first)
+			i->second->setActive(!i->second->isActive());
+	}
+	return (0);
+}
+
+void	GraphicsDisplay::run()
 {
 	std::cout << "ran!" << std::endl;
 	_window.create(sf::VideoMode(800, 1800), "My Window");
@@ -55,6 +69,10 @@ void GraphicsDisplay::run()
 		{
 			if (event.type == sf::Event::Closed)
 				_window.close();
+			// grab entered text
+			if (event.type == sf::Event::TextEntered && (event.text.unicode < 128))
+				if (handleKey(static_cast<char>(event.text.unicode)) == 1)
+					_window.close();
 		}
 
 		// Start of main loop (clear, draw, display)
@@ -70,29 +88,6 @@ void GraphicsDisplay::run()
 		_window.display();
 		usleep(100000);
 	}
-	// for (;;)
-	// {
-	// 	// if (this->_keyboard.isKeyPresed('q'))
-	// 	// 	break;
-	// 	for(std::map<char, IMonitorModule*>::iterator i = _keyBind.begin(); i != _keyBind.end(); i++)
-	// 	{
-	// 		if (this->_keyboard.isKeyPresed(i->first))
-	// 			i->second->setActive(!i->second->isActive());
-	// 	}
-	// 	delAllWin();
-	// 	for(Itor i = _monitors.begin(); i != _monitors.end(); i++)
-	// 	{
-	// 		if ((*i)->isActive())
-	// 		{
-	// 			(*i)->stat();
-	// 			(*i)->beDisplayed(this);
-	// 		}
-	// 	}
-	// 	refresh();
-	// 	while (getch() != ERR)
-	// 	;
-	// 	usleep(100000);
-	// }
 }
 
 void	GraphicsDisplay::drawName(IMonitorModule *module)
