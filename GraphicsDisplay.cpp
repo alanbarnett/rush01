@@ -144,8 +144,9 @@ void GraphicsDisplay::display(ChartMonitorModule<float> *module)
 	size_t	points = module->getSize();
 	float	graphHeight = 100;
 	float	graphWidth = 400;
-	float	xPos;
-	float	xDelta;
+	// Initialize x position, and distance between x positions
+	float	xPos = _horizOffset;
+	float	xDelta = graphWidth / points;
 	ChartMonitorModule<float>::iterator	it = module->begin();
 	ChartMonitorModule<float>::iterator	it_end = module->end();
 
@@ -155,8 +156,6 @@ void GraphicsDisplay::display(ChartMonitorModule<float> *module)
 	// Draw title (updates current height)
 	drawName(module);
 
-	xPos = _horizOffset;
-	xDelta = graphWidth / points;
 	unsigned int	i;
 	for (i = 0, it = module->begin(); it != it_end; i += 2, ++it)
 	{
@@ -164,32 +163,18 @@ void GraphicsDisplay::display(ChartMonitorModule<float> *module)
 		graph[i].position = sf::Vector2f(xPos, _curHeight + graphHeight - *it);
 		// This dot is always the bottom of the graph
 		graph[i + 1].position = sf::Vector2f(xPos, _curHeight + graphHeight);
+
 		// Set colors based on value
-		graph[i].color = sf::Color(40 + *it, 160 - *it, 80 + (xPos / 4));
-		graph[i + 1].color = sf::Color(*it, 100 - *it, 40 + (xPos / 4));
+		graph[i].color = sf::Color(*it, 100 - *it, (xPos / 4));
+		graph[i + 1].color = sf::Color(80 + (*it / 2), 140 - (*it / 2), 20 + (xPos / 4));
 
 		// Move to the next x location
 		xPos += xDelta;
 	}
 
-	_curHeight += 300;
+	// Increase the height based on the graph and the window gap
+	_curHeight += graphHeight + _windowGap;
+
+	// Draw the graph
 	_window.draw(graph);
-	// int wh = chartHeight + 4;
-	// WINDOW *w = newwin(wh, _width, _curHeight, 0);
-	// _curHeight += wh;
-	// _windows.push_back(w);
-	// wborder(w, 0, 0, 0, 0, 0, 0, 0, 0);
-	// mvwprintw(w, 1, 1, module->getName().c_str());
-	// wmove(w,2,1);
-	// whline(w, ACS_HLINE, getmaxx(w) - 2);
-
-	// int posx = 1;
-	// for(ChartMonitorModule<float>::iterator i = module->begin(); i != module->end(); i++, posx++)
-	// {
-	// 	int h = (*i) * chartHeight / 100;
-	// 	int posy = wh - 2 - h;
-	// 	mvwaddch(w, posy, posx, '.');		 
-	// }
-
-	// wrefresh(w);
 }
