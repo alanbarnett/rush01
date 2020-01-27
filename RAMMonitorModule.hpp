@@ -13,7 +13,5 @@ class RAMMonitorModule : public MultiStrMonitorModule
         ~RAMMonitorModule();
         void beDisplayed(IMonitorDisplay *);
         void stat();
-        size_t getRamSize();
-        size_t getFreeMem() ;
 };
 #endif

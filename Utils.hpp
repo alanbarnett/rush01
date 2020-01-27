@@ -21,6 +21,9 @@ int getNCoresEach();
 int getLogCPUNCoresEach();
 int getPhisCPUNCoresEach();
 
+size_t getRamSize();
+size_t getFreeMem();
+float getRamLoad();
 #endif
 
 struct Info

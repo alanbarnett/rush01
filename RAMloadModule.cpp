@@ -1,5 +1,6 @@
 #include "RAMloadModule.hpp"
 #include "IMonitorDisplay.hpp"
+#include "Utils.hpp"
 #include <cstdlib>
 
 RAMloadModule::RAMloadModule(size_t size): ChartMonitorModule<float>("RAM Load:", size)
@@ -14,7 +15,7 @@ RAMloadModule::~RAMloadModule()
 
 void RAMloadModule::stat()
 {
-	addData(rand() % 100);
+	addData(getRamLoad());
 }
 
 void RAMloadModule::beDisplayed(IMonitorDisplay *d)

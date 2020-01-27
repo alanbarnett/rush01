@@ -146,4 +146,28 @@ float getFrequencyGHz()
     getSysctl("hw.cpufrequency", freq);
     return freq * 1.e-9;
 }
+
+size_t getRamSize()
+{
+    size_t ram = 0;
+    getSysctl("hw.memsize", ram);
+    return ram / (1024 * 1024);
+}
+
+size_t getFreeMem()
+{
+    size_t pages = 0;
+    size_t page_sz = 0;
+    getSysctl("vm.page_free_count", pages);
+    getSysctl("vm.pagesize", page_sz);
+    return pages * page_sz / (1024 * 1024);
+}
+
+float getRamLoad()
+{
+	size_t	total = getRamSize();
+	size_t	free = getFreeMem();
+    return ((float) (total - free) * 100 / total);
+}
+
 #endif
