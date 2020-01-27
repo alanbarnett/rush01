@@ -20,11 +20,10 @@
 
 GraphicsDisplay::GraphicsDisplay(unsigned int width, unsigned int height): AMonitorDisplay(width, height)
 {
-	std::cout << "in graphic constructor" << std::endl;
-	_vertOffset = 10.0f;
-	_horizOffset = 10.0f;
-	_titleGap = 10;
-	_windowGap = 20;
+	_vertOffset = 20.0f;
+	_horizOffset = 20.0f;
+	_titleGap = 20;
+	_windowGap = 40;
 	_titleSize = 36;
 	_textSize = 32;
 	_titleColor = sf::Color(100, 120, 140);
@@ -33,7 +32,6 @@ GraphicsDisplay::GraphicsDisplay(unsigned int width, unsigned int height): AMoni
 
 GraphicsDisplay::~GraphicsDisplay()
 {
-	std::cout << "graphics destructor" << std::endl;
 }
 
 int		GraphicsDisplay::handleKey(char c)
@@ -52,7 +50,6 @@ int		GraphicsDisplay::handleKey(char c)
 
 void	GraphicsDisplay::run()
 {
-	std::cout << "ran!" << std::endl;
 	_window.create(sf::VideoMode(800, 1800), "My Window");
 	if (!_font.loadFromFile("TerminusTTF-4.46.0.ttf"))
 		return ;
@@ -76,7 +73,7 @@ void	GraphicsDisplay::run()
 
 		// Start of main loop (clear, draw, display)
 		_window.clear();
-		for (monitors_iter i = _monitors.begin(); i != _monitors.end(); ++i)
+		for (iterator i = _monitors.begin(); i != _monitors.end(); ++i)
 		{
 			if ((*i)->isActive())
 			{
