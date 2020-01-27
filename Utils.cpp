@@ -49,9 +49,9 @@ Info::Info()
 
 #elif defined(__APPLE__)
 
-    processes = getNProcesses();
-    cores = getNCores();
-    model = ::getModel();
+    processes = getNProcessesEach();
+    cores = getNCoresEach();
+    model = getModelStr();
     frequency = getFrequencyGHz();
 
 #endif
@@ -102,23 +102,26 @@ float getCPULoad()
     return (loadp);
 }
 
-int getNCores()
+int getNCoresEach()
 {
     int ncpu = 0;
     getSysctl("hw.ncpu", ncpu);
     return ncpu;
 }
 
-std::string getModel()
+std::string getModelStr()
 {
     char buf[256];
     getSysctl("machdep.cpu.brand_string", buf);
     return std::string(buf);
 }
 
-void getNProcesses()
+int getNProcessesEach()
 {
+    int pidCount = proc_listallpids(NULL, 0);
+	return pidCount - 19;
 }
+
 float getFrequencyGHz()
 {
     long freq = 0;

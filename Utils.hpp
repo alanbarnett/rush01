@@ -15,9 +15,9 @@ float getCPULoad();
 
 #if defined(__APPLE__)
 float getFrequencyGHz();
-void getNProcesses();
-std::string getModel();
-int getNCores();
+int getNProcessesEach();
+std::string getModelStr();
+int getNCoresEach();
 
 #endif
 
