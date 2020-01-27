@@ -27,6 +27,7 @@ OBJS = main.o\
 		UnicornMonitorModule.o\
 		UsageMonitorModule.o\
 		NetworkMonitorModule.o\
+		NetworkStat.o\
 		Utils.o\
 
 		
