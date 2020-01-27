@@ -6,7 +6,7 @@
 /*   By: abarnett <alanbarnett328@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 07:14:47 by abarnett          #+#    #+#             */
-/*   Updated: 2020/01/26 22:11:12 by abarnett         ###   ########.fr       */
+/*   Updated: 2020/01/26 22:16:49 by abarnett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void GraphicsDisplay::display(ChartMonitorModule<float> *module)
 {
 	size_t	points = module->getSize();
 	float	graphHeight = 100;
-	float	graphWidth = 400;
+	float	graphWidth = 500;
 	// Initialize x position, and distance between x positions
 	float	xPos = _horizOffset;
 	float	xDelta = graphWidth / points;
