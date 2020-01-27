@@ -8,6 +8,13 @@
 
 NetworkStat::NetworkStat()
 {
+    _prev_time = 0;
+    _received = 0;
+    _sent = 0;
+    _rdelta = 0;
+    _sdelta = 0;
+    _rthrpt = 0;
+    _sthrpt = 0;
     update();
     update();
 }
@@ -15,6 +22,9 @@ NetworkStat::~NetworkStat() {}
 
 void NetworkStat::update()
 {
+    time_t cur_time = time(0);
+    if (cur_time <= _prev_time)
+        return;
     runShellCmd("nettop -Jbytes_in,bytes_out -P -l 1 -x > /tmp/netstat.tmp 2>/dev/null");
     std::ifstream in("/tmp/netstat.tmp");
     if (!in)
@@ -33,10 +43,6 @@ void NetworkStat::update()
         total_received += bytes_received;
         total_sent += bytes_sent;
     }
-
-    time_t cur_time = time(0);
-    if (cur_time <= _prev_time)
-        return;
 
     time_t tdelta = cur_time - _prev_time;
     _prev_time = cur_time;

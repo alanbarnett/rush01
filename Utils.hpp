@@ -56,7 +56,7 @@ template <typename T>
 std::string toStr(const T &val)
 {
     std::stringstream ss;
-    ss << std::setprecision(4) << val;
+    ss << std::fixed << std::setprecision(2) << val;
     return (ss.str());
 }
 
