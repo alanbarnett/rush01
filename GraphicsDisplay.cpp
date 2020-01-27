@@ -6,7 +6,7 @@
 /*   By: abarnett <alanbarnett328@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 07:14:47 by abarnett          #+#    #+#             */
-/*   Updated: 2020/01/26 19:48:00 by abarnett         ###   ########.fr       */
+/*   Updated: 2020/01/26 22:11:12 by abarnett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	GraphicsDisplay::run()
 			}
 		}
 		_window.display();
-		usleep(100000);
+		usleep(500000);
 	}
 }
 
