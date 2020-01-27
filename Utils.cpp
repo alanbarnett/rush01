@@ -49,10 +49,11 @@ Info::Info()
 
 #elif defined(__APPLE__)
 
-    processes = getNprocesses();
+    processes = getNProcesses();
     cores = getNCores();
-    model = getModel();
+    model = ::getModel();
     frequency = getFrequencyGHz();
+
 #endif
 }
 
@@ -76,7 +77,7 @@ const std::string &Info::getModel() const
 }
 float Info::getFrequency() const
 {
-    return freqency;
+    return frequency;
 }
 
 #if defined(__linux__)
@@ -91,13 +92,6 @@ float getCPULoad()
 }
 
 #elif defined(__APPLE__)
-
-template <typename T>
-int getSysctl(const char *name, T &t)
-{
-    size_t len = sizeof(T);
-    return sysctlbyname(name, &t, &len, NULL, 0);
-}
 
 float getCPULoad()
 {

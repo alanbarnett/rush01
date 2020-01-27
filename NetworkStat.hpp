@@ -1,6 +1,7 @@
 #ifndef NETWORKSTAT_HPP
 #define NETWORKSTAT_HPP
 #include <cstdlib>
+#include <ctime>
 
 class NetworkStat
 {

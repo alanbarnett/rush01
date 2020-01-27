@@ -31,13 +31,10 @@ NcursesDisplay::NcursesDisplay(unsigned int width, unsigned int height): AMonito
     addMonitorWithKey('d', new DateMonitorModule());
     addMonitorWithKey('c', new CPUMonitorModule());
     addMonitorWithKey('r', new RAMMonitorModule());
-    addMonitorWithKey('k', new NetworkMonitorModule());
     addMonitorWithKey('l', new CPUloadModule(width - 2));
     addMonitorWithKey('z', new UnicornMonitorModule());
     addMonitorWithKey('u', new UsageMonitorModule());
-
-
-
+    addMonitorWithKey('k', new NetworkMonitorModule());
 }
 
 void NcursesDisplay::addMonitorWithKey(char key, IMonitorModule* m)
@@ -68,21 +65,34 @@ void NcursesDisplay::run()
 {
     for (int dt = 0;; dt++)
     {
+        bool keyPressed = false;
         if (this->_keyboard.isKeyPresed('q'))
             break;
+        int winRefresh = 10;   
         for(std::map<char, IMonitorModule*>::iterator i = _keyBind.begin(); i != _keyBind.end(); i++)
         {
             if (this->_keyboard.isKeyPresed(i->first))
+            {
                 i->second->setActive(!i->second->isActive());
+                keyPressed = true;
+            }
         }
-        delAllWin();
+
+
         for(Itor i = _monitors.begin(); i != _monitors.end(); i++)
         {
-            if ((*i)->isActive())
+            if ((*i)->isActive() && (!(dt % winRefresh) || keyPressed))
             {
-                if (dt%5 == 0)
                     (*i)->stat();
-                (*i)->beDisplayed(this);
+            }
+        }
+        if (!(dt % winRefresh) || keyPressed)
+            delAllWin();
+        for(Itor i = _monitors.begin(); i != _monitors.end(); i++)
+        {
+            if ((*i)->isActive() && (!(dt % winRefresh) || keyPressed))
+            {
+                    (*i)->beDisplayed(this);
             }
         }
         refresh();

@@ -23,26 +23,34 @@ int getNCores();
 
 struct Info
 {
-private:
-    float activity;
-    int processes;
-    int cores;
-    std::string model;
-    float freqency;
-    Info(const Info &);
-    Info &operator=(const Info &);
+    private:
+        float activity;
+        int processes;
+        int cores;
+        std::string model;
+        float frequency;
+        Info(const Info &);
+        Info &operator=(const Info &);
 
-public:
-    Info();
-    ~Info();
-    float getActivity() const;
-    int getNProcesses() const;
-    int getNCores() const;
-    const std::string &getModel() const;
-    float getFrequency() const;
+    public:
+        Info();
+        ~Info();
+        float getActivity() const;
+        int getNProcesses() const;
+        int getNCores() const;
+        const std::string &getModel() const;
+        float getFrequency() const;
+
 };
 
 int runShellCmd(const std::string &command);
+
+template <typename T>
+int getSysctl(const char *name, T &t)
+{
+    size_t len = sizeof(T);
+    return sysctlbyname(name, &t, &len, NULL, 0);
+}
 
 template <typename T>
 std::string toStr(const T &val)
