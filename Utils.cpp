@@ -54,6 +54,9 @@ Info::Info()
 
     #endif
         activity = (getCPULoad() * 100 / getLogCPUNCoresEach());
+        if (activity > 100)
+            activity = 100
+
 }
 
 Info::~Info() {}
