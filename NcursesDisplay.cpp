@@ -80,7 +80,7 @@ void NcursesDisplay::run()
         {
             if ((*i)->isActive())
             {
-                if (dt%10 == 0)
+                if (dt%5 == 0)
                     (*i)->stat();
                 (*i)->beDisplayed(this);
             }
@@ -88,7 +88,7 @@ void NcursesDisplay::run()
         refresh();
         while (getch() != ERR)
         ;
-        usleep(10000);
+        usleep(100000);
     }
 }
 void NcursesDisplay::display(MultiStrMonitorModule *module)

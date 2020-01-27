@@ -40,7 +40,7 @@
 // 	runCmd(cmd);
 // 	return(0);
 // }
-
+ 
 void usage(std::ostream &os)
 {
 	os << "Usage: ft_gkrellm -tui|-gui\n";
