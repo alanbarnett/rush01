@@ -12,7 +12,8 @@ CPUloadModule::~CPUloadModule()
 
 void CPUloadModule::stat()
 {
-    float loadp = getCPULoad();
+    Info info;
+    float loadp = info.getActivity();
     addData(loadp);
 }
 
