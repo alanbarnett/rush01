@@ -6,7 +6,7 @@
 /*   By: abarnett <alanbarnett328@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 07:14:47 by abarnett          #+#    #+#             */
-/*   Updated: 2020/01/26 17:55:51 by abarnett         ###   ########.fr       */
+/*   Updated: 2020/01/26 18:29:10 by abarnett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <string>
-#include <sstream>
-
+#include <algorithm>
 
 GraphicsDisplay::GraphicsDisplay(unsigned int width, unsigned int height): AMonitorDisplay(width, height)
 {
@@ -106,6 +105,7 @@ void	GraphicsDisplay::drawName(IMonitorModule *module)
 void GraphicsDisplay::display(MultiStrMonitorModule *module)
 {
 	sf::Text	text;
+	std::string	singlestring;
 
 	// Draw the module title (updates current height)
 	drawName(module);
@@ -114,29 +114,29 @@ void GraphicsDisplay::display(MultiStrMonitorModule *module)
 	text.setFont(_font);
 	text.setCharacterSize(_textSize);
 	text.setFillColor(_textColor);
-	text.setPosition(_horizOffset, _curHeight);
 
-	std::stringstream	bigstring;
-
+	// Draw each string
 	const std::vector<std::string> & strings = module->getStrings();
 	for (size_t i = 0; i < strings.size(); ++i)
 	{
-		bigstring << strings[i] << "\n";
+		// Get a string, and remove its newlines
+		singlestring = strings[i];
+		// remove pushes all \n's to after the .end()
+		// it returns the new .end(), before all the things it pushed back
+		// erase takes the new end and the total end, and deletes that chunk
+		singlestring.erase(
+				std::remove(singlestring.begin(), singlestring.end(), '\n'),
+				singlestring.end());
+
+		text.setPosition(_horizOffset, _curHeight);
+		text.setString(singlestring);
+		_window.draw(text);
+		// Update current height
+		_curHeight += text.getLocalBounds().height;
 	}
-	text.setString(bigstring.str());
-	_window.draw(text);
-	_curHeight += text.getLocalBounds().height + _windowGap;
-	// int wh = strings.size() + 4;
-	// WINDOW *w = newwin(wh, _width, _curHeight, 0);
-	// _curHeight += wh;
-	// _windows.push_back(w);
-	// wborder(w, 0, 0, 0, 0, 0, 0, 0, 0);
-	// mvwprintw(w, 1, 1, module->getName().c_str());
-	// wmove(w,2,1);
-	// whline(w, ACS_HLINE, getmaxx(w) - 2);
-	// for(size_t i = 0; i < strings.size(); i++)
-	// 	mvwprintw(w, 3 + i, 1, strings[i].c_str()); 
-	// wrefresh(w);
+
+	// Add gap before the next window
+	_curHeight += _windowGap;
 }
 
 void GraphicsDisplay::display(ChartMonitorModule<float> *module)
