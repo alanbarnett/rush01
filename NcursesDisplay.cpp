@@ -72,7 +72,7 @@ void NcursesDisplay::run()
         }
         if (!(dt % winRefresh) || keyPressed)
             delAllWin();
-        for(Itor i = _monitors.begin(); i != _monitors.end(); i++)
+        for(iterator i = _monitors.begin(); i != _monitors.end(); i++)
         {
             if ((*i)->isActive() && (!(dt % winRefresh) || keyPressed))
             {
