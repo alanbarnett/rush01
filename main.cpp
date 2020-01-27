@@ -4,6 +4,7 @@
 #include "DateMonitorModule.hpp"
 #include "OSMonitorModule.hpp"
 #include "CPUloadModule.hpp"
+#include "RAMloadModule.hpp"
 #include <iostream>
 #include <string>
 
@@ -80,7 +81,8 @@ int	main(int argc, char **argv)
 	disp->addMonitorWithKey('n', new NameMonitorModule());
 	disp->addMonitorWithKey('o', new OSMonitorModule());
 	disp->addMonitorWithKey('d', new DateMonitorModule());
-	disp->addMonitorWithKey('l', new CPUloadModule(WIDTH - 2));
+	disp->addMonitorWithKey('c', new CPUloadModule(WIDTH - 2));
+	disp->addMonitorWithKey('r', new RAMloadModule(WIDTH - 2));
 
 	disp->run();
 

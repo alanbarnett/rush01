@@ -6,7 +6,7 @@
 #    By: snechaev <snechaev@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/25 17:22:15 by snechaev          #+#    #+#              #
-#    Updated: 2020/01/26 19:13:16 by abarnett         ###   ########.fr        #
+#    Updated: 2020/01/26 19:27:29 by abarnett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ OBJS :=	main.o\
 		Keyboard.o\
 		OSMonitorModule.o\
 		NameMonitorModule.o\
+		CPUloadModule.o\
+		RAMloadModule.o\
 		CPUMonitorModule.o\
 		RAMMonitorModule.o\
 		DateMonitorModule.o\
