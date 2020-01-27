@@ -6,7 +6,7 @@
 /*   By: abarnett <alanbarnett328@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 07:14:47 by abarnett          #+#    #+#             */
-/*   Updated: 2020/01/26 18:29:10 by abarnett         ###   ########.fr       */
+/*   Updated: 2020/01/26 19:48:00 by abarnett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 GraphicsDisplay::GraphicsDisplay(unsigned int width, unsigned int height): AMonitorDisplay(width, height)
 {
+	_windowWidth = width * 30;
+	_windowHeight = height * 40;
 	_vertOffset = 20.0f;
 	_horizOffset = 20.0f;
 	_titleGap = 20;
@@ -50,7 +52,7 @@ int		GraphicsDisplay::handleKey(char c)
 
 void	GraphicsDisplay::run()
 {
-	_window.create(sf::VideoMode(800, 1800), "My Window");
+	_window.create(sf::VideoMode(_windowWidth, _windowHeight), "My Window");
 	if (!_font.loadFromFile("TerminusTTF-4.46.0.ttf"))
 		return ;
 

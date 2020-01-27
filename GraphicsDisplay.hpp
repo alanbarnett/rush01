@@ -6,7 +6,7 @@
 /*   By: abarnett <alanbarnett328@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 07:14:48 by abarnett          #+#    #+#             */
-/*   Updated: 2020/01/26 17:23:07 by abarnett         ###   ########.fr       */
+/*   Updated: 2020/01/26 19:46:47 by abarnett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ class GraphicsDisplay: public AMonitorDisplay
 	private:
 		static const size_t chartHeight = 10; 
 		sf::RenderWindow	_window;
+		unsigned int		_windowWidth;
+		unsigned int		_windowHeight;
 		sf::Font			_font;
 		float				_vertOffset;
 		float				_horizOffset;
