@@ -18,6 +18,8 @@ float getFrequencyGHz();
 int getNProcessesEach();
 std::string getModelStr();
 int getNCoresEach();
+int getLogCPUNCoresEach();
+int getPhisCPUNCoresEach();
 
 #endif
 

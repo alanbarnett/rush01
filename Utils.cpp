@@ -37,24 +37,23 @@ int runShellCmd(const std::string &command)
 
 Info::Info()
 {
-    activity = getCPULoad();
+    #if defined(__linux__)
+        struct sysinfo in;
+        sysinfo(&in);
+        processes = in.procs;
+        cores = get_nprocs();
+        model = "unknow";
+        freqency = 0;
 
-#if defined(__linux__)
-    struct sysinfo in;
-    sysinfo(&in);
-    processes = in.procs;
-    cores = get_nprocs();
-    model = "unknow";
-    freqency = 0;
+    #elif defined(__APPLE__)
 
-#elif defined(__APPLE__)
+        processes = getNProcessesEach();
+        cores = getNCoresEach();
+        model = getModelStr();
+        frequency = getFrequencyGHz();
 
-    processes = getNProcessesEach();
-    cores = getNCoresEach();
-    model = getModelStr();
-    frequency = getFrequencyGHz();
-
-#endif
+    #endif
+        activity = (getCPULoad() * 100 / getLogCPUNCoresEach());
 }
 
 Info::~Info() {}
@@ -71,6 +70,7 @@ int Info::getNCores() const
 {
     return cores;
 }
+
 const std::string &Info::getModel() const
 {
     return model;
@@ -99,6 +99,7 @@ float getCPULoad()
 
     getSysctl("vm.loadavg", load);
     float loadp = 1.0f * load.ldavg[0] / load.fscale;
+
     return (loadp);
 }
 
@@ -106,6 +107,20 @@ int getNCoresEach()
 {
     int ncpu = 0;
     getSysctl("hw.ncpu", ncpu);
+    return ncpu;
+}
+
+int getPhisCPUNCoresEach()
+{
+    int ncpu = 0;
+    getSysctl("hw.physicalcpu", ncpu);
+    return ncpu;
+}
+
+int getLogCPUNCoresEach()
+{
+    int ncpu = 0;
+    getSysctl("hw.logicalcpu", ncpu);
     return ncpu;
 }
 
